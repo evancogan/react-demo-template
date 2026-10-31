@@ -1,0 +1,14 @@
+# React Demo Template
+
+The starting point for my React + TypeScript demo projects. Every new demo (an online storefront, a business landing page, an admin dashboard) is created from this repo, so it starts with the same setup, checks and workflow from its first commit.
+
+## How changes get in
+
+- Every change is small and starts as an issue that says what "done" means.
+- Every change goes through a pull request on its own branch.
+- CI runs lint, tests and a build on every pull request. Nothing merges unless it passes.
+- I read every diff before merging, whether I wrote it or an AI agent did.
+
+## Status
+
+Repo setup. The app skeleton, CI and agent workflow files come next.
