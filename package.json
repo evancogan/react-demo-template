@@ -10,7 +10,8 @@
     "typecheck": "tsc -b",
     "format": "prettier --write .",
     "test": "vitest run",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check": "prettier --check . && npm run lint && npm run typecheck && npm test && npm run build"
   },
   "dependencies": {
     "react": "^19.3.1",
