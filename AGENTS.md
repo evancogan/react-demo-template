@@ -32,6 +32,7 @@ demo project starts from this repo.
   plainly what you didn't finish or couldn't verify.
 - In the pull request checklist, tick only what you verified. If an item
   doesn't apply, leave it unticked and say why.
+- Never merge a pull request. A human merges after review.
 
 ## When to stop and ask
 
