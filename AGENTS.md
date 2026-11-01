@@ -3,10 +3,6 @@
 Rules for any AI agent working in this repo. Read this file and `docs/adr/`
 before starting a task.
 
-These are rules about actions. Formatting, line endings and the pull request
-checklist are enforced by CI and the templates, so they aren't repeated here
-(see ADR 0003).
-
 ## Project
 
 A React + TypeScript template, built with Vite and tested with Vitest. Every
