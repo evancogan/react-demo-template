@@ -19,19 +19,16 @@ demo project starts from this repo.
 
 - Work on one issue at a time, on its own branch. Never commit to `main`.
 - Only change the files listed in the issue's "Where" section.
-- Run `npm run check` before finishing. The task isn't done until it passes.
 - Never edit or delete a test to make it pass. If a test looks wrong, stop and
   say so.
 - Don't add, remove or upgrade packages unless the issue asks for it.
 - Respect the decisions in `docs/adr/`. For example, TypeScript stays on
   version 6 (see ADR 0001).
-- Use LF line endings and follow the Prettier style in `.prettierrc.json`.
 - Don't add AI attribution (such as `Co-Authored-By` lines or "Generated with")
   to commits or pull requests.
-- In the pull request, write `Closes #N`, summarize what changed, and say
-  plainly what you didn't finish or couldn't verify.
-- In the pull request checklist, tick only what you verified. If an item
-  doesn't apply, leave it unticked and say why.
+- When opening a pull request, read `.github/pull_request_template.md` and fill
+  in every section, following its checklist rule. Say plainly what you didn't
+  finish or couldn't verify.
 - Never merge a pull request. A human merges after review.
 
 ## When to stop and ask
