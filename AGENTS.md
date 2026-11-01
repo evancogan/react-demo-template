@@ -30,6 +30,8 @@ demo project starts from this repo.
   to commits or pull requests.
 - In the pull request, write `Closes #N`, summarize what changed, and say
   plainly what you didn't finish or couldn't verify.
+- In the pull request checklist, tick only what you verified. If an item
+  doesn't apply, leave it unticked and say why.
 
 ## When to stop and ask
 
