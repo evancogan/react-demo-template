@@ -6,10 +6,11 @@ Closes #
 
 ## Review checklist
 
-Tick only what you verified. If an item doesn't apply, leave it unticked and say why.
+Tick only what you verified. If you leave an item unticked, put the reason in parentheses at the end of its line, for example (docs only).
 
 - [ ] I read the whole diff, including new files
 - [ ] Only files in the issue's "Where" changed (lock file changes only if packages changed)
 - [ ] The summary above matches the diff
 - [ ] Tests cover the change, and no test was edited just to make it pass
 - [ ] `npm run check` passes locally
+<EOF>
