@@ -22,4 +22,4 @@ assignees: ''
 
 ## Constraints
 
-<!-- What must not change, decisions to respect (see docs/adr/), and anything to avoid. If the change is exact text, write that text out in full on one line. Workers use only GitHub tools, no local shell or file tools. -->
+<!-- What must not change, decisions to respect (see docs/adr/), and anything to avoid. If the change is exact text, write that text out in full on one line. Workers read only this issue, the files in "Where" and the template they fill in, so link any ADR they need here. -->

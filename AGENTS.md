@@ -1,7 +1,11 @@
 # Agent instructions
 
-Rules for any AI agent working in this repo. Read this file and `docs/adr/`
-before starting a task.
+Rules for any AI agent working in this repo. Read only what your task needs:
+this file, the issue, the files in its "Where" section, and the template
+you're filling in. Read an ADR in `docs/adr/` only if the issue links it.
+
+Read the issue with the GitHub tool `issue_read`. Take the owner and repo from
+`git remote -v`; don't type them from memory.
 
 ## Project
 
@@ -22,13 +26,15 @@ demo project starts from this repo.
 - Never edit or delete a test to make it pass. If a test looks wrong, stop and
   say so.
 - Don't add, remove or upgrade packages unless the issue asks for it.
-- Respect the decisions in `docs/adr/`. For example, TypeScript stays on
-  version 6 (see ADR 0001).
+- TypeScript stays on version 6 (ADR 0001).
 - Don't add AI attribution (such as `Co-Authored-By` lines or "Generated with")
   to commits or pull requests.
-- When opening a pull request, read `.github/pull_request_template.md` and fill
-  in every section, following its checklist rule. Say plainly what you didn't
-  finish or couldn't verify.
+- Templates are read-only. Copy `.github/pull_request_template.md` into the
+  pull request's description, or a file from `.github/ISSUE_TEMPLATE/` into the
+  issue's body, and fill it in there. Never edit the template files unless the
+  issue's "Where" lists them.
+- In the pull request's description, fill in every section and follow the
+  checklist rule. Say plainly what you didn't finish or couldn't verify.
 - Never merge a pull request. A human merges after review.
 - Only work on issues labeled `ready`. If an issue isn't labeled `ready`,
   stop and say so.
