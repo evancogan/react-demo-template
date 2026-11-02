@@ -30,6 +30,9 @@ demo project starts from this repo.
   in every section, following its checklist rule. Say plainly what you didn't
   finish or couldn't verify.
 - Never merge a pull request. A human merges after review.
+- Only work on issues labeled `ready`. If an issue isn't labeled `ready`,
+  stop and say so.
+- When you write an issue, label it `proposed`, never `ready`.
 
 ## When to stop and ask
 
