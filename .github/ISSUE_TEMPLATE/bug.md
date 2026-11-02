@@ -20,15 +20,15 @@ assignees: ''
 
 ## Where
 
-<!-- The files or folders this fix may touch, relative to the repo root. Anything not listed is out of scope. -->
+<!-- The files or folders this fix may touch, as paths from the repo root. Anything not listed is out of scope. -->
 
 ## Done when
 
-<!-- Checkable outcomes, written so someone else could verify them. -->
+<!-- Checkable outcomes, written so someone else could verify them. Only list items that can be checked from the diff or the pull request. -->
 
-- [ ] A new test fails before the fix and passes after it
+- [ ] A new test reproduces the bug, and the pull request shows it failing before the fix
 - [ ] CI passes
 
 ## Constraints
 
-<!-- What must not change, decisions to respect (see docs/adr/), and anything to avoid. -->
+<!-- What must not change, decisions to respect (see docs/adr/), and anything to avoid. If the change is exact text, write that text out in full on one line. Workers use only GitHub tools, no local shell or file tools. -->
