@@ -3,3 +3,7 @@ date,issue,pr,task_class,model,settings,done_when_score,turns,minutes,loops,outc
 2026-11-01,17,18,address-review,qwen3.5-9b,precise; presence off; 32K; partly on CPU,0/3,,3,yes,stopped
 2026-11-01,17,18,address-review,qwen3.5-9b,precise; presence 1.5; 32K; q8 KV; all on GPU,1/3,,5,no,closed
 2026-11-01,17,19,mechanical-edit,qwen3.6-35b-a3b,precise; 32K; q8 KV; 1 slot,4/4,14,7,no,merged
+2026-11-01,22,24,mechanical-edit,qwen3.5-9b-text,precise; presence 1.5; 32K; q8 KV; all on GPU; with folder,1/4,,2,no,merged-after-fixes
+2026-11-01,22,24,address-review,qwen3.5-9b-text,precise; presence 1.5; 32K; q8 KV; all on GPU; with folder,1/2,,2,no,stopped
+2026-11-01,23,,mechanical-edit,qwen3.5-9b-text,precise; presence 1.5; 32K; q8 KV; all on GPU; no folder,,,1.25,yes,stopped
+2026-11-01,23,25,mechanical-edit,qwen3.5-9b-text,precise; presence 1.5; 32K; q8 KV; all on GPU; no folder,3/4,,1.75,no,merged-after-fixes
