@@ -20,6 +20,12 @@ merging.
 <!-- TODO(human): state the loop in one or two sentences: who writes the
 issue, what label it gets, what you do before a worker may start, and who
 merges. -->
+The loop looks like this: 
+I spot and make note of an issue/task
+An agent is tasked with creating an issue.
+I review, then mark the issue ready to work on
+An agent is assigned to writing the changes and submitting a PR
+I review the diff, compare it to the spec, and merge
 
 ## Consequences
 
