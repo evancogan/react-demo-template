@@ -11,12 +11,17 @@ jobs:
   description:
     runs-on: ubuntu-26.04
     steps:
+      # Only for reading the pull request template. Nothing from the
+      # repo is run.
+      - uses: actions/checkout@v5
+
       - name: Check the description follows the template
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
         run: |
           errors=0
           body=$(printf '%s\n' "$PR_BODY" | tr -d '\r')
+          template=.github/pull_request_template.md
 
           if ! printf '%s\n' "$body" | grep -Eq '^Closes #[0-9]+'; then
             echo "::error::The description needs a line like 'Closes #12'."
@@ -29,6 +34,22 @@ jobs:
               errors=1
             fi
           done
+
+          # Every checklist item in the template must appear, ticked or not,
+          # with its wording unchanged. A reason in parentheses may follow it.
+          items=$(tr -d '\r' < "$template" | grep -E '^- \[ \] ' | sed -E 's/^- \[ \] //')
+          checklist=$(printf '%s\n' "$body" | grep -E '^- \[[ xX]\] ' | sed -E 's/^- \[[ xX]\] //')
+          missing=0
+          while IFS= read -r item; do
+            [ -n "$item" ] || continue
+            if ! printf '%s\n' "$checklist" | awk -v item="$item" 'index($0, item) == 1 { found = 1 } END { exit !found }'; then
+              missing=$((missing + 1))
+            fi
+          done <<< "$items"
+          if [ "$missing" -gt 0 ]; then
+            echo "::error::$missing of the template's checklist items are missing or reworded. Copy them from $template."
+            errors=1
+          fi
 
           unreasoned=$(printf '%s\n' "$body" | grep -E '^- \[ \] ' | grep -Evc '\([^()]+\)[[:space:]]*$' || true)
           if [ "$unreasoned" -gt 0 ]; then
