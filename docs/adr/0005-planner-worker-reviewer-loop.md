@@ -17,15 +17,13 @@ merging.
 
 ## Decision
 
-<!-- TODO(human): state the loop in one or two sentences: who writes the
-issue, what label it gets, what you do before a worker may start, and who
-merges. -->
-The loop looks like this: 
-I spot and make note of an issue/task
-An agent is tasked with creating an issue.
-I review, then mark the issue ready to work on
-An agent is assigned to writing the changes and submitting a PR
-I review the diff, compare it to the spec, and merge
+Every change goes through five steps, and I own the first, third and last:
+
+1. I spot a problem or a task and make a note of it.
+2. A planner agent writes it up as an issue and labels it `proposed`.
+3. I review and edit the issue, then relabel it `ready`.
+4. A worker agent makes the changes and opens a pull request.
+5. I review the diff against the issue's spec, and I merge.
 
 ## Consequences
 
