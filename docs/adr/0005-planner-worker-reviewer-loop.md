@@ -17,13 +17,14 @@ merging.
 
 ## Decision
 
-Every change goes through five steps, and I own the first, third and last:
+Every change goes through five steps. A human owns the first, third and last,
+and agents never merge:
 
-1. I spot a problem or a task and make a note of it.
+1. A human spots a problem or a task and notes it.
 2. A planner agent writes it up as an issue and labels it `proposed`.
-3. I review and edit the issue, then relabel it `ready`.
-4. A worker agent makes the changes and opens a pull request.
-5. I review the diff against the issue's spec, and I merge.
+3. A human reviews and edits the issue, then relabels it `ready`.
+4. A worker agent makes the change and opens a pull request.
+5. A human reviews the diff against the issue's spec, and merges.
 
 ## Consequences
 
