@@ -6,6 +6,8 @@ Closes #
 
 ## Review checklist
 
+Filled in by whoever opened this pull request.
+
 Tick only what you verified. If you leave an item unticked, put the reason in parentheses at the end of its line, for example (docs only).
 
 - [ ] I read the whole diff, including new files
