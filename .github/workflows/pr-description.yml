@@ -1,0 +1,39 @@
+name: PR description
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  description:
+    runs-on: ubuntu-26.04
+    steps:
+      - name: Check the description follows the template
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          errors=0
+          body=$(printf '%s\n' "$PR_BODY" | tr -d '\r')
+
+          if ! printf '%s\n' "$body" | grep -Eq '^Closes #[0-9]+'; then
+            echo "::error::The description needs a line like 'Closes #12'."
+            errors=1
+          fi
+
+          for heading in '## What changed' '## Review checklist'; do
+            if ! printf '%s\n' "$body" | grep -Fxq "$heading"; then
+              echo "::error::The description is missing the heading '$heading'."
+              errors=1
+            fi
+          done
+
+          unreasoned=$(printf '%s\n' "$body" | grep -E '^- \[ \] ' | grep -Evc '\([^()]+\)[[:space:]]*$' || true)
+          if [ "$unreasoned" -gt 0 ]; then
+            echo "::error::$unreasoned unticked checklist item(s) have no reason in parentheses at the end of the line."
+            errors=1
+          fi
+
+          exit "$errors"
