@@ -6,14 +6,19 @@ on:
 
 permissions:
   contents: read
+  issues: read
+  pull-requests: read
 
 jobs:
   description:
     runs-on: ubuntu-26.04
     steps:
-      # Only for reading the pull request template. Nothing from the
-      # repo is run.
+      # Only for reading the pull request template, from the base branch, so a
+      # pull request that edits the template can't change what's checked.
+      # Nothing from the repo is run.
       - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
 
       - name: Check the description follows the template
         env:
@@ -38,6 +43,10 @@ jobs:
           # Every checklist item in the template must appear, ticked or not,
           # with its wording unchanged. A reason in parentheses may follow it.
           items=$(tr -d '\r' < "$template" | grep -E '^- \[ \] ' | sed -E 's/^- \[ \] //')
+          if [ -z "$items" ]; then
+            echo "::error::$template on the base branch has no checklist items."
+            errors=1
+          fi
           checklist=$(printf '%s\n' "$body" | grep -E '^- \[[ xX]\] ' | sed -E 's/^- \[[ xX]\] //')
           missing=0
           while IFS= read -r item; do
@@ -57,4 +66,38 @@ jobs:
             errors=1
           fi
 
+          exit "$errors"
+
+      - name: Check templates only change when the issue asks
+        if: ${{ !cancelled() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          changed=$(gh api "repos/$GH_REPO/pulls/$PR_NUMBER/files" --paginate --jq '.[].filename')
+          templates=$(printf '%s\n' "$changed" | grep -E '^\.github/(pull_request_template\.md$|ISSUE_TEMPLATE/)' || true)
+          if [ -z "$templates" ]; then
+            echo "No template files changed."
+            exit 0
+          fi
+
+          issue=$(printf '%s\n' "$PR_BODY" | tr -d '\r' | grep -Eo '^Closes #[0-9]+' | head -n 1 | tr -dc '0-9')
+          if [ -z "$issue" ]; then
+            echo "::error::This pull request changes template files, so it needs a 'Closes #N' line whose issue lists them under 'Where'."
+            exit 1
+          fi
+
+          # The issue's "Where" section: from its heading to the next heading.
+          where=$(gh api "repos/$GH_REPO/issues/$issue" --jq '.body // ""' | tr -d '\r' |
+            awk '/^## / { inside = ($0 == "## Where"); next } inside')
+
+          errors=0
+          while IFS= read -r file; do
+            if ! printf '%s\n' "$where" | grep -Fq "$file"; then
+              echo "::error file=$file::Templates are read-only. Issue #$issue's 'Where' doesn't list $file, so this pull request may not change it."
+              errors=1
+            fi
+          done <<< "$templates"
           exit "$errors"
