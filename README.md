@@ -12,3 +12,7 @@ The starting point for my React + TypeScript demo projects. Every new demo (an o
 ## Status
 
 Repo setup. The app skeleton, CI and agent workflow files come next.
+
+## Agent workspace
+
+This repo is cloned into the agent's VM at `C:\Repos\react-demo-template` as its workspace. The repo owner does not work in that clone directly; all changes are made through pull requests.
