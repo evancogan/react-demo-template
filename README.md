@@ -11,7 +11,7 @@ The starting point for my React + TypeScript demo projects. Every new demo (an o
 
 ## Status
 
-Repo setup. The app skeleton, CI and agent workflow files come next.
+The app skeleton, CI, and the agent workflow (templates, AGENTS.md, decision records, run log, agent account) are all done now. The next step is building the three demo apps from this template.
 
 ## Agent workspace
 
