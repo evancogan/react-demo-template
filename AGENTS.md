@@ -21,7 +21,8 @@ demo project starts from this repo.
 
 ## Rules
 
-- Work on one issue at a time, on its own branch. Never commit to `main`.
+- Work on one issue at a time, on a branch named `issue-<number>`. Never
+  commit to `main`.
 - Only change the files listed in the issue's "Where" section.
 - Never edit or delete a test to make it pass. If a test looks wrong, stop and
   say so.
@@ -35,6 +36,7 @@ demo project starts from this repo.
   issue's "Where" lists them.
 - In the pull request's description, fill in every section and follow the
   checklist rule. Say plainly what you didn't finish or couldn't verify.
+- When the change is done, commit it, push the branch and open a pull request.
 - Never merge a pull request. A human merges after review.
 - Only work on issues labeled `ready`. If an issue isn't labeled `ready`,
   stop and say so.
@@ -42,6 +44,7 @@ demo project starts from this repo.
 
 ## When to stop and ask
 
+- You can't read the issue. Don't guess what it says.
 - The fix needs a file that isn't listed in the issue's "Where".
 - The issue can be read two ways that lead to different code.
 - `npm run check` still fails after three attempts at a fix.
