@@ -18,3 +18,5 @@ empty.
   otherwise `no`.
 - `outcome`: the final verdict: `merged`, `merged-after-fixes`, `closed` or
   `stopped`.
+
+Agent runs from the phone use Open WebUI's Planner for issues and Remote Desktop into the agent VM for the worker.
