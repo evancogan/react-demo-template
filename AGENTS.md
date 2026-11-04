@@ -36,6 +36,7 @@ demo project starts from this repo.
   issue's "Where" lists them.
 - In the pull request's description, fill in every section and follow the
   checklist rule. Say plainly what you didn't finish or couldn't verify.
+- Never force-push. If a push is rejected, stop and say so.
 - When the change is done, commit it, push the branch and open a pull request.
 - Never merge a pull request. A human merges after review.
 - Only work on issues labeled `ready`. If an issue isn't labeled `ready`,
