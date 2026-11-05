@@ -19,4 +19,4 @@ empty.
 - `outcome`: the final verdict: `merged`, `merged-after-fixes`, `closed` or
   `stopped`.
 
-Agent runs from the phone use Open WebUI's Planner for issues and Remote Desktop into the agent VM for the worker.
+Agent runs from the phone use Open WebUI: the Planner writes issues and the Worker starts the coding agent in the agent VM.
