@@ -15,6 +15,38 @@ of the app, so it moves to the workshop kit once that exists.
   `main-backup-<time>` branch, then creates `issue-N` itself, so the agent
   never works on `main`.
 - Sends OpenCode the same fixed prompt every time, with a 20-minute limit.
+  OpenCode only edits the files and runs `npm run check`.
+- Then the service finishes the job itself: it commits the change, checks
+  that only files in the issue's "Where" changed, runs `npm run check`,
+  pushes, opens the pull request from the template on `main`, and requests
+  your review. It ticks only what it verified (the Where check and
+  `npm run check`) and gives a reason on every other item.
+- If any step fails, it pushes nothing, keeps the work on the VM's local
+  `issue-N` branch, and says why in a comment on the issue.
+
+## OpenCode's permissions
+
+OpenCode doesn't need to commit, push or open pull requests any more, so its
+config (`C:\Users\agent\.config\opencode\opencode.json`) shouldn't allow
+it. In `mcp.github.headers`, set `X-MCP-Tools` to `issue_read`. The `bash`
+section becomes:
+
+```json
+"bash": {
+  "*": "deny",
+  "cd *": "allow",
+  "pwd": "allow",
+  "ls*": "allow",
+  "head *": "allow",
+  "tail *": "allow",
+  "git status*": "allow",
+  "git diff*": "allow",
+  "git log*": "allow",
+  "git branch --show-current": "allow",
+  "npm ci": "allow",
+  "npm run check*": "allow"
+}
+```
 
 ## In the VM
 

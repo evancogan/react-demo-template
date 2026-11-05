@@ -48,6 +48,17 @@ so an agent can't edit the service that runs it.
   stray commits to a `main-backup-<time>` branch. The start message no longer
   says the chat will report back, because an Open WebUI chat can't: the
   Worker model kept promising a notification that never came.
+- **1.4** On #68, LFM3 wrote the test but never committed it, pushed an
+  empty branch, and planned to tick every checklist item; earlier runs had
+  committed on the wrong branch and skipped checklist reasons. Every one of
+  those was a git or GitHub step, not the code. OpenCode now only edits the
+  files and runs `npm run check`; the service commits, checks the changed
+  files against the issue's Where, runs `npm run check` again, pushes, and
+  opens the pull request from the template on `main`. It ticks only what it
+  verified and gives a reason on every other item, so the ticks are true by
+  construction. On any failure it pushes nothing and keeps the work on a
+  local branch. OpenCode's allowlist drops git add, commit, push and switch,
+  and its GitHub tools shrink to `issue_read`.
 
 ## Consequences
 
