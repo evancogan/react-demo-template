@@ -1,0 +1,69 @@
+name: Issue description
+
+on:
+  issues:
+    types: [opened, edited, reopened]
+
+permissions:
+  contents: read
+  issues: read
+
+jobs:
+  task-template:
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+
+      - name: Check task issues follow the template
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          body_file="$RUNNER_TEMP/issue-body.md"
+          template=.github/ISSUE_TEMPLATE/task.md
+          printf '%s\n' "$ISSUE_BODY" | tr -d '\r' > "$body_file"
+
+          # Bug issues use a different template and are validated separately.
+          if grep -Fxq '## Steps to reproduce' "$body_file"; then
+            echo "Bug issue detected; skipping task template validation."
+            exit 0
+          fi
+
+          errors=0
+          previous_line=0
+          for heading in '## What' '## Where' '## Done when' '## Constraints'; do
+            line=$(grep -n -F -x "$heading" "$body_file" | head -n 1 | cut -d: -f1 || true)
+            if [ -z "$line" ]; then
+              echo "::error::The issue is missing the heading '$heading'."
+              errors=1
+            elif [ "$line" -le "$previous_line" ]; then
+              echo "::error::The issue headings are not in the same order as $template."
+              errors=1
+            else
+              previous_line=$line
+            fi
+          done
+
+          items=$(grep -E '^- \[ \] ' "$template" | sed -E 's/^- \[ \] //')
+          if [ -z "$items" ]; then
+            echo "::error::$template has no checklist items."
+            errors=1
+          fi
+
+          checklist=$(grep -E '^- \[[ xX]\] ' "$body_file" | sed -E 's/^- \[[ xX]\] //')
+          missing=0
+          while IFS= read -r item; do
+            [ -n "$item" ] || continue
+            if ! printf '%s\n' "$checklist" |
+              awk -v item="$item" 'index($0, item) == 1 { found = 1 } END { exit !found }'; then
+              missing=$((missing + 1))
+            fi
+          done <<< "$items"
+
+          if [ "$missing" -gt 0 ]; then
+            echo "::error::$missing of the task template checklist items are missing or reworded."
+            errors=1
+          fi
+
+          exit "$errors"
