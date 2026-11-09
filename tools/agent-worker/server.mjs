@@ -88,7 +88,7 @@ function prompt(n) {
 2. Change only the files listed under "Where". Make only the change the issue asks for. If Constraints gives exact text, copy it exactly. In code, always use straight quotes (" or '), never curly ones.
 3. To add a line after an existing line, edit with that existing line as the old text, and as the new text that same line followed by the new line. Never put the new line first unless the issue says "before".
 4. Read each file you changed again and run git diff. Check the change is exactly what the issue asks for, in the right place. If it isn't, fix it.
-5. Run npm run check. If it fails, fix your change and run it again, at most 3 tries in total.
+5. Run npm run check. If it fails, do not hand-edit to fix formatting. If Prettier names a file, run npx prettier --write <that file>. If ESLint names a file, run npx eslint --fix <that file>. Then run npm run check again, at most 3 tries in total. The service will run npm run check again after you stop, so leave the tree passing. Warnings are not failures - do not fix warnings in files you did not change.
 6. Stop. Reply with one sentence that says what you changed.`;
 }
 
