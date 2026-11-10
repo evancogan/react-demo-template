@@ -28,6 +28,16 @@ function App() {
         >
           Count is {count}
         </button>
+
+        <button
+          type="button"
+          className="counter"
+          disabled={count === 0}
+          aria-label="Reset count to 0"
+          onClick={() => setCount(0)}
+        >
+          Reset
+        </button>
       </section>
 
       <div className="ticks"></div>
