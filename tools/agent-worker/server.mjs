@@ -1,4 +1,4 @@
-// Agent worker v1.4: OpenCode only edits the files. This service checks the
+// Agent worker v1.5: OpenCode only edits the files. This service checks the
 // change, commits, pushes and opens the pull request. Why each version
 // changed: docs/adr/0010-start-the-worker-from-a-small-service.md.
 import http from 'node:http';
@@ -10,6 +10,7 @@ import {
   appendFileSync,
   existsSync,
 } from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import {timingSafeEqual} from 'node:crypto';
 
@@ -19,16 +20,28 @@ const OWNER = 'evancogan';
 const NAME = 'react-demo-template';
 const REPO = `${OWNER}/${NAME}`;
 const REVIEWER = 'evancogan';
-const HOME = 'C:\\Agents\\worker';
-const CLONE = 'C:\\Repos\\react-demo-template';
-const OPENCODE = path.join(
-  process.env.APPDATA,
-  'npm',
-  'node_modules',
-  'opencode-ai',
-  'bin',
-  'opencode.exe'
-);
+const HOME =
+  process.env.WORKER_HOME ??
+  (process.platform === 'win32'
+    ? 'C:\\Agents\\worker'
+    : path.join(os.homedir(), 'agent-worker'));
+const CLONE =
+  process.env.WORKER_CLONE ??
+  (process.platform === 'win32'
+    ? 'C:\\Repos\\react-demo-template'
+    : path.join(os.homedir(), 'Repos', NAME));
+const OPENCODE =
+  process.env.OPENCODE_COMMAND ??
+  (process.platform === 'win32'
+    ? path.join(
+        process.env.APPDATA,
+        'npm',
+        'node_modules',
+        'opencode-ai',
+        'bin',
+        'opencode.exe'
+      )
+    : 'opencode');
 const TIME_LIMIT_MS = 20 * 60 * 1000;
 const CHECK_LIMIT_MS = 10 * 60 * 1000;
 const TOKEN = readFileSync(path.join(HOME, 'token.txt'), 'utf8').trim();
@@ -168,10 +181,9 @@ function prBody(template, n, summary) {
 
 function npmCheck() {
   return new Promise(resolve => {
-    // npm is a .cmd file on Windows, and Node only starts those through cmd.exe.
-    const child = spawn('cmd.exe', ['/d', '/s', '/c', 'npm run check'], {
+    const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+    const child = spawn(npm, ['run', 'check'], {
       cwd: CLONE,
-      windowsHide: true,
       stdio: ['ignore', 'pipe', 'pipe'],
     });
     let text = '';
@@ -488,7 +500,7 @@ const spec = {
   openapi: '3.1.0',
   info: {
     title: 'Agent worker',
-    version: '1.4.0',
+    version: '1.5.0',
     description:
       'Starts the coding agent in the agent VM on one GitHub issue labeled ready, and reports how it went.',
   },
