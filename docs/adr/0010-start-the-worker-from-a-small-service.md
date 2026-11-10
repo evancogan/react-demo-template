@@ -59,6 +59,10 @@ so an agent can't edit the service that runs it.
   construction. On any failure it pushes nothing and keeps the work on a
   local branch. OpenCode's allowlist drops git add, commit, push and switch,
   and its GitHub tools shrink to `issue_read`.
+- **1.5** On #83, OpenCode mixed Windows and Unix absolute path formats. Reads
+  sometimes succeeded after path globbing, but targeted edits failed. The
+  prompt now requires repository-relative paths and explicitly forbids drive
+  paths and mounted Unix forms; the README documents the same invariant.
 
 ## Consequences
 

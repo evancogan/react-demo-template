@@ -1,4 +1,4 @@
-// Agent worker v1.4: OpenCode only edits the files. This service checks the
+// Agent worker v1.5: OpenCode only edits the files. This service checks the
 // change, commits, pushes and opens the pull request. Why each version
 // changed: docs/adr/0010-start-the-worker-from-a-small-service.md.
 import http from 'node:http';
@@ -86,10 +86,11 @@ function prompt(n) {
   return `You are working on GitHub issue #${n}. Your job is only to change the files. After you stop, this service checks your change, commits it, pushes it and opens the pull request, so never run git add, git commit or git push, and never open a pull request.
 1. Read the issue with github_issue_read (method "get", owner "${OWNER}", repo "${NAME}", issue_number ${n}). If it isn't labeled "ready", stop.
 2. Change only the files listed under "Where". Make only the change the issue asks for. If Constraints gives exact text, copy it exactly. In code, always use straight quotes (" or '), never curly ones.
-3. To add a line after an existing line, edit with that existing line as the old text, and as the new text that same line followed by the new line. Never put the new line first unless the issue says "before".
-4. Read each file you changed again and run git diff. Check the change is exactly what the issue asks for, in the right place. If it isn't, fix it.
-5. Run npm run check. If it fails, do not hand-edit to fix formatting. If Prettier names a file, run npx prettier --write <that file>. If ESLint names a file, run npx eslint --fix <that file>. Then run npm run check again, at most 3 tries in total. The service will run npm run check again after you stop, so leave the tree passing. Warnings are not failures - do not fix warnings in files you did not change.
-6. Stop. Reply with one sentence that says what you changed.`;
+3. The repository root is your current working directory. Use repository-relative paths only (for example, "src/App.tsx"). Never prefix paths with a drive letter, "/C:/", "/c/", or any other absolute-path form. Do not use a different shell path style to work around a tool error; retry the same operation with the relative path.
+4. To add a line after an existing line, edit with that existing line as the old text, and as the new text that same line followed by the new line. Never put the new line first unless the issue says "before".
+5. Read each file you changed again and run git diff. Check the change is exactly what the issue asks for, in the right place. If it isn't, fix it.
+6. Run npm run check. If it fails, do not hand-edit to fix formatting. If Prettier names a file, run npx prettier --write <that file>. If ESLint names a file, run npx eslint --fix <that file>. Then run npm run check again, at most 3 tries in total. The service will run npm run check again after you stop, so leave the tree passing. Warnings are not failures - do not fix warnings in files you did not change.
+7. Stop. Reply with one sentence that says what you changed.`;
 }
 
 function getIssue(n) {
@@ -488,7 +489,7 @@ const spec = {
   openapi: '3.1.0',
   info: {
     title: 'Agent worker',
-    version: '1.4.0',
+    version: '1.5.0',
     description:
       'Starts the coding agent in the agent VM on one GitHub issue labeled ready, and reports how it went.',
   },

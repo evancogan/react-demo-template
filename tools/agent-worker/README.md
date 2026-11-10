@@ -16,6 +16,10 @@ of the app, so it moves to the workshop kit once that exists.
   never works on `main`.
 - Sends OpenCode the same fixed prompt every time, with a 20-minute limit.
   OpenCode only edits the files and runs `npm run check`.
+- OpenCode must use paths relative to the repository root, such as
+  `src/App.tsx`. It must not use Windows drive paths or Unix-style mounted
+  paths such as `/C:/...` or `/c/...`; those can make reads appear to work
+  while causing targeted edits to fail.
 - Then the service finishes the job itself: it commits the change, checks
   that only files in the issue's "Where" changed, runs `npm run check`,
   pushes, opens the pull request from the template on `main`, and requests
@@ -53,6 +57,11 @@ section becomes:
 The service runs from `C:\Agents\worker`, not from the clone, so an agent
 can't change the service that runs it. `token.txt` and `logs\` live there too
 and are never committed.
+
+OpenCode starts with `C:\Repos\react-demo-template` as its working directory.
+When editing, use repository-relative paths from that directory. If a tool
+reports a path error, retry with the relative path rather than converting it
+between Windows and Unix path formats.
 
 To install the version on `main`, stop the service with Ctrl+C, then:
 
