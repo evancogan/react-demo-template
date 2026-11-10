@@ -28,8 +28,6 @@ demo project starts from this repo.
   say so.
 - Don't add, remove or upgrade packages unless the issue asks for it.
 - TypeScript stays on version 6 (ADR 0001).
-- Don't add AI attribution (such as `Co-Authored-By` lines or "Generated with")
-  to commits or pull requests.
 - Templates are read-only. Copy `.github/pull_request_template.md` into the
   pull request's description, or a file from `.github/ISSUE_TEMPLATE/` into the
   issue's body, and fill it in there. Never edit the template files unless the
