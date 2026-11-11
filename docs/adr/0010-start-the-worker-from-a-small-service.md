@@ -59,6 +59,12 @@ so an agent can't edit the service that runs it.
   construction. On any failure it pushes nothing and keeps the work on a
   local branch. OpenCode's allowlist drops git add, commit, push and switch,
   and its GitHub tools shrink to `issue_read`.
+- **1.5** The service can now run in the Ubuntu WSL environment alongside
+  OpenCode. Its worker directory, clone directory, and OpenCode command can
+  be configured with `WORKER_HOME`, `WORKER_CLONE`, and `OPENCODE_COMMAND`;
+  Linux defaults use the user's home directory and the `opencode` executable.
+  The npm check uses the native npm executable on Linux and remains compatible
+  with the Windows deployment.
 
 ## Consequences
 
