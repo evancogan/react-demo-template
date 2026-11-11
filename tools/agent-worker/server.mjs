@@ -72,7 +72,6 @@ function run(cmd, args) {
 }
 const git = args => run('git', args);
 const gh = args => run('gh', args);
-// eslint-disable-next-line no-control-regex
 const stripAnsi = text => text.replace(/\x1b\[[0-9;?]*[A-Za-z]/g, '');
 const lastLines = (text, count) =>
   stripAnsi(text).trim().split('\n').slice(-count).join('\n');
@@ -586,5 +585,5 @@ server.on('error', e => {
   process.exit(1);
 });
 server.listen(PORT, HOST, () =>
-  console.log(`Agent worker v1.4 listening on http://${HOST}:${PORT}`)
+  console.log(`Agent worker v1.5 listening on http://${HOST}:${PORT}`)
 );
