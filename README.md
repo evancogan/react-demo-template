@@ -1,5 +1,7 @@
 # React Demo Template
 
+![React](https://img.shields.io/badge/React-TypeScript-61DAFB?logo=react&logoColor=black)
+
 [![CI](https://github.com/evancogan/react-demo-template/actions/workflows/ci.yml/badge.svg)](https://github.com/evancogan/react-demo-template/actions/workflows/ci.yml)
 
 The starting point for my React + TypeScript demo projects. Every new demo (an online storefront, a business landing page, an admin dashboard) is created from this repo, so it starts with the same setup, checks and workflow from its first commit.
