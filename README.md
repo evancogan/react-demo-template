@@ -1,6 +1,6 @@
 # React Demo Template
 
-![React](https://img.shields.io/badge/React-TypeScript-61DAFB?logo=react&logoColor=black)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black) ![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white) ![Vitest](https://img.shields.io/badge/Vitest-5-6E9F18?logo=vitest&logoColor=white) ![Node](https://img.shields.io/badge/Node.js-24-339933?logo=nodedotjs&logoColor=white) [![Use this template](https://img.shields.io/badge/use%20this-template-2ea44f?logo=github)](https://github.com/evancogan/react-demo-template/generate)
 
 [![CI](https://github.com/evancogan/react-demo-template/actions/workflows/ci.yml/badge.svg)](https://github.com/evancogan/react-demo-template/actions/workflows/ci.yml)
 
